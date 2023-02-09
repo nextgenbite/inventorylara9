@@ -55,31 +55,10 @@
         <div id="wrapper">
 
 
-            <!-- Topbar Start -->
-           @include('body.header')
-            <!-- end Topbar -->
 
-            <!-- ========== Left Sidebar Start ========== -->
-           @include('body.sidebar')
-            <!-- Left Sidebar End -->
+               @yield('content')
 
-            <!-- ============================================================== -->
-            <!-- Start Page Content here -->
-            <!-- ============================================================== -->
 
-            <div class="content-page">
-
-               @yield('admin')
-
-                <!-- Footer Start -->
-                @include('body.footer')
-                <!-- end Footer -->
-
-            </div>
-
-            <!-- ============================================================== -->
-            <!-- End Page content -->
-            <!-- ============================================================== -->
 
 
         </div>
@@ -168,6 +147,4 @@
 
 
     </body>
-</html>
-  </body>
 </html>

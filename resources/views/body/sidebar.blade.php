@@ -3,7 +3,7 @@
                 <div class="h-100" data-simplebar>
 
                     <!-- User box -->
-                
+
 
                     <!--- Sidemenu -->
                     <div id="sidebar-menu">
@@ -11,11 +11,17 @@
                         <ul id="side-menu">
 
                             <li class="menu-title">Navigation</li>
-                
+
           <li>
             <a href="{{ url('/dashboard') }}">
                <i class="mdi mdi-view-dashboard-outline"></i>
                 <span> Dashboards </span>
+            </a>
+        </li>
+          <li>
+            <a href="{{ url('/pos') }}">
+               <i class="mdi mdi-cart-variant "></i>
+                <span> POS </span>
             </a>
         </li>
 
@@ -24,7 +30,7 @@
 
                             <li class="menu-title mt-2">Apps</li>
 
-                           
+
 
                             <li>
                                 <a href="#sidebarEcommerce" data-bs-toggle="collapse">
@@ -40,7 +46,7 @@
                                         <li>
                                             <a href="{{ route('add.employee') }}">Add Employee </a>
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
                             </li>
@@ -59,7 +65,7 @@
                     <li>
                         <a href="{{ route('add.customer') }}">Add Customer</a>
                     </li>
-                                         
+
                                     </ul>
                                 </div>
                             </li>
@@ -78,7 +84,7 @@
                     <li>
                         <a href="{{ route('add.supplier') }}">Add Supplier</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -102,12 +108,12 @@
 
                      <li>
                         <a href="{{ route('pay.salary') }}">Pay Salary</a>
-                    </li> 
+                    </li>
 
                     <li>
                         <a href="{{ route('month.salary') }}">Last Month Salary</a>
                     </li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -126,7 +132,7 @@
                     <li>
                         <a href="{{ route('employee.attend.list') }}">Employee Attendence List </a>
                     </li>
-                
+
                 </ul>
             </div>
         </li>
@@ -144,7 +150,7 @@
                     <li>
                         <a href="{{ route('all.category') }}">All Category </a>
                     </li>
-                
+
                 </ul>
             </div>
         </li>
@@ -168,13 +174,13 @@
                      <li>
                         <a href="{{ route('import.product') }}">Import Product </a>
                     </li>
-                
+
                 </ul>
             </div>
         </li>
 
-                             
-                          
+
+
 
                             <li class="menu-title mt-2">Custom</li>
 
@@ -192,7 +198,7 @@
                                         <li>
                                             <a href="auth-login-2.html">Log In 2</a>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
                             </li>
@@ -214,16 +220,16 @@
                                         <li>
                                             <a href="pages-sitemap.html">Sitemap</a>
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
                             </li>
 
-                         
- 
-                          
 
-                               
+
+
+
+
                                     </ul>
                                 </div>
                             </li>
