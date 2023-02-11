@@ -166,6 +166,9 @@ Route::controller(PosController::class)->group(function(){
 
 Route::get('/pos','index')->name('pos.index');
 Route::get('/pos-search','searchProduct')->name('pos.search');
+Route::get('/customer-search','searchCustomer')->name('customer.search');
+Route::get('/product/{id}','productShow')->name('productShow');
+Route::get('/invoice/{id}','Posinvoice')->name('Posinvoice');
 
 
 

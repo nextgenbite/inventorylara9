@@ -13,9 +13,36 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+.tab-card{
+    cursor: pointer;
+    position: relative;
+    height: 100px;
+    width: 100px;
+    transition: all 0.4s ease-in-out 0s;
+}
+.tab-card:hover img{
+    opacity: 0.2;
+}
+.tab-card .card-body  .card-title{
+    color: white
+}
+.tab-card .card-body{
+
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    left: 10%;
+    opacity: 0;
+
+}
+
+.tab-card:hover .card-body{
+    opacity: 1;
+}
 </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="{{asset("backend/assets/js/Jquery-ui/jquery-ui.css")}}">
+    <script src="{{asset("backend/assets/js/Jquery-ui/jquery.js")}}"></script>
+    <script src="{{asset("backend/assets/js/Jquery-ui/jquery-ui.js")}}"></script>
     <!-- Start Content-->
     <div class="container-fluid">
         <div class="row">
@@ -57,40 +84,54 @@ input[type=number] {
 
                     <form action="">
                         <div class="row mb-3">
-                            <label for="date" class="col-md-4 col-form-label">Date</label>
+                            <label for="date" class="col-md-4 col-form-label">Date & Time</label>
                             <div class="col-md-8">
                                 <input type="disable" class="form-control " disabled value="{{ date('h:i') }} - {{ date('Y/m/d') }}" id="date">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputEmail3" class="col-md-4 col-form-label">Date</label>
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Bill No</label>
+                            <div class="col-md-8">
+                                <input type="text" readonly value="p10000" class="form-control" id="inputEmail3">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Bill Type</label>
+                            <div class="col-md-8">
+                                <select class="form-control" name="bill_type" id="">
+                                    <option value="Sales">Sales</option>
+                                    <option value="Return">Return</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Customer</label>
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <a class="btn btn-primary input-group-text" data-bs-toggle="modal" data-bs-target="#userModal"><i class="fa fa-user"></i></a>
+                                    <input type="text" value="walking customers" class="form-control" id="inputEmail3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputPhonel3" class="col-md-4 col-form-label">Customer's Phone</label>
+                            <div class="col-md-8">
+                                <input type="number" class="form-control" value="0170000000" id="inputPhonel3" readonly>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Counter</label>
                             <div class="col-md-8">
                                 <input type="email" class="form-control" id="inputEmail3">
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="inputEmail3" class="col-md-4 col-form-label">Date</label>
+                            <label for="inputEmail3" class="col-md-4 col-form-label">Cashier</label>
                             <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail3">
+                                <input type="text" value="{{auth()->user()->name}}" readonly class="form-control" id="inputEmail3">
                             </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-md-4 col-form-label">Date</label>
-                            <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-md-4 col-form-label">Date</label>
-                            <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputEmail3" class="col-md-4 col-form-label">Date</label>
-                            <div class="col-md-8">
-                                <input type="email" class="form-control" id="inputEmail3">
-                            </div>
+
                         </div>
                         <hr>
                         <div>
@@ -103,7 +144,7 @@ input[type=number] {
                                     <p>Sub Total</p>
                                 </div>
                                 <div class="">
-                                    <p id="sub_total">0.00</p>
+                                    <p id="subTotal">0.00</p>
                                 </div>
                             </div>
                             <div class="tax-total d-flex justify-content-between">
@@ -151,65 +192,125 @@ input[type=number] {
     <!-- container -->
 
     </div> <!-- content -->
-
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-fullscreen modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title text-center" id="exampleModalLabel">Select a product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                          <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">All Categories</a>
+                          <ul class="dropdown-menu">
+                            @foreach ($categories as  $cat)
+                            <li><a class="dropdown-item" href="#">{{$cat->category_name}}</a></li>
+                            @endforeach
+                          </ul>
+                        </li>
+                      </ul>
+                      <div class="row">
+
+                          @foreach ($products as $item)
+
+                          <div class="card tab-card col-md-3" id="{{$item->id}}" >
+                            <img src="{{asset($item->product_image)}}" class="card-img-top" alt="">
+                            <div class="card-body">
+                              <h5 class="card-title">{{$item->product_name}}</h5>
+
+                            </div>
+                          </div>
+                          @endforeach
+                      </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+    <!-- User Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel">Select a product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+  <ul class="nav nav-pills">
+    <li class="active btn btn-primary"><a data-bs-toggle="tab" href="#new-customer">Create a Customer</a></li>
+    <li class="btn btn-primary"><a data-bs-toggle="tab"  href="#menu1">Customer List</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="new-customer" class="tab-pane fade in active">
+      <h3>Create a customer</h3>
+      <form action="" method="post">
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-md-4 col-form-label">Customer Name</label>
+            <div class="col-md-8">
+                <div class="input-group">
+                    <a class="btn btn-primary input-group-text" data-bs-toggle="modal" data-bs-target="#userModal"><i class="fa fa-user"></i></a>
+                    <input type="text" value="walking customers" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Customer List</h3>
+      <div class="input-group">
+          <input type="text" id="customer-search" placeholder="Search customer" class="form-control" id="inputEmail3">
+          <a class="btn btn-primary input-group-text"><i class="fa fa-search"></i></a>
+    </div>
+      <ul class="list-group" id="customerList">
+        @foreach ($customers as $item)
+        <li class="list-group-item"> {{$item->name}}</li>
+        @endforeach
+      </ul>
+
+    </div>
+  </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        // $(document).ready(function(){
-        //     $("#Search").on("keyup", function() {
-        //         let value = $(this).val().toLowerCase();
-        //     console.log(value);
+        $(document).ready(function(){
+            $("#customer-search").on("keyup", function() {
+                let value = $(this).val().toLowerCase();
 
-        //     $.ajax({
-        //         url: "{{ url('/pos-search') }}",
-        //         type: "GET",
-        //         data: {search: value},
-        //         success: function(res){
-        //             console.log(res);
+            $.ajax({
+                url: "{{ url('/customer-search') }}",
+                type: "GET",
+                data: {search: value},
+                success: function(res){
+                    $("#customerList").html(`<li class="list-group-item"> ${res.data.name}</li>`)
 
-        //         }
-        //     })
-        // });
+                }
+            })
+        });
 
-        // $( "#Search" ).autocomplete({
-        //     selectFirst: true, //here
-        //     minLength: 2,
+        $(document).on("click", ".tab-card", function(){
+             let id =$(this).attr("id")
+            $.ajax({
+                url: `{{url('/product/${id}')}}`,
+                type: "get",
+                success: function(res){
 
-        //     source: function( request, response ) {
-        //         let value = $(this).val();
-        //         console.log(value);
-        //         $.ajax({
-        //         url: "{{ url('/pos-search') }}",
-        //         type: 'GET',
-        //         dataType: "json",
-        //         data: {search: value},
-        //         success: function(res){
-        //             console.log(res);
-        //         }
+                    cart(res.data);
+                }
 
-        //         })
-        //     }
-        // });
+            });
+        });
+        });
 
-        // $( function() {
-        // "use strict";
+
         $("#search").autocomplete({
             selectFirst: true, //here
             minLength: 2,
@@ -231,62 +332,7 @@ input[type=number] {
                         } else {
                             // $("#cartTable").append(data)
                             response($.map(data, function(item) {
-                                $('tbody#cartTable').append(
-
-                                    `
-                <tr id=" ${item.id}">
-
-                <td>
-                    ${item.id}
-                </td>
-
-                <td>
-                    ${item.product_code}
-                </td>
-
-                <td>
-                    ${item.product_name}
-                </td>
-
-                <td>
-                    <input class="form-control unit_price" name="unit_price[]" type="number" value="${item.selling_price}" style="text-align: center;line-height: 1;border: none;background: transparent;" required/>
-                </td>
-
-                <td>
-        <input class="form-control form-control-sm unit_discount" name="discount[]" type="number" value="0" style="text-align: center;line-height: 1;border: none;background: transparent;" required/>
-        <input type="hidden" name="variation_id[]"  type="number" value="${item.id}"/>
-        <input type="hidden" name="product_id[]"  type="number" value="${item.id}"/>
-    </td>
-
-                <td>
-                    <div class="d-flex">
-                      <button class="btn btn-primary btn-sm qtybtn" data-type="minus">
-                        <i class="fas fa-minus"></i>
-                      </button>
-
-                      <input id="form1" min="1" data-qty="${item.id}" name="quantity[]" size="50" value="1" type="number"
-                        class="form-control form-control-sm quantity" />
-
-                      <button class="btn btn-primary btn-sm qtybtn"
-                      data-type="plus">
-                        <i class="fas fa-plus"></i>
-                      </button>
-                    </div>
-
-                </td>
-
-                <td>
-                        <a class="btn-delete btn btn-sm btn-danger" > <i class="fa fa-trash"></i></a>
-                </td>
-
-                <td class="row_total">
-                    ${item.selling_price}
-                </td>
-
-                </tr>
-                `);
-
-                cartCalculate();
+                                cart(item);
                                 return {
                                     label: item.product_name,
                                     // value: item.id
@@ -303,12 +349,12 @@ input[type=number] {
 
             }
         });
-        // });
-        // });
+
 
         $(document).on("click", ".btn-delete", function(){
 
 $(this).parents("tr").remove();
+cartCalculate();
 
 });
 $("body").on('click','.qtybtn', function(){
@@ -333,6 +379,11 @@ $("body").on('click','.qtybtn', function(){
 
 function cartCalculate(){
     var tRow =$('#cartTable tr');
+
+    let sub_total=0;
+    let sub_total_discount=0;
+    let rec_product_row='';
+    let tax_amount=0;
     tRow.each(function(index){
         var tblrow = $(this);
         let qty=Number(tblrow.find('td input.quantity').val());
@@ -342,10 +393,75 @@ function cartCalculate(){
         let row_discount=(qty *discount);
         row_total -=row_discount;
         tblrow.find('td.row_total').text(row_total.toFixed(2));
+        sub_total+=row_total;
+        sub_total_discount+=row_discount;
 
-    })
+
+    });
+    var final_total = sub_total - sub_total_discount;
+    $("#subTotal").text(sub_total.toFixed(2));
+    $("#discount").text(sub_total_discount.toFixed(2));
+    $("#final_total").text(final_total.toFixed(2));
 }
 cartCalculate();
 
+function cart(item) {
+    $('tbody#cartTable').append(
+
+`
+<tr id=" ${item.id}">
+
+<td>
+${item.id}
+</td>
+
+<td>
+${item.product_code}
+</td>
+
+<td>
+${item.product_name}
+</td>
+
+<td>
+<input class="form-control unit_price" name="unit_price[]" type="number" value="${item.selling_price}" style="text-align: center;line-height: 1;border: none;background: transparent;" required/>
+</td>
+
+<td>
+<input class="form-control form-control-sm unit_discount" name="discount[]" type="number" value="0" style="text-align: center;line-height: 1;border: none;background: transparent;" required/>
+<input type="hidden" name="variation_id[]"  type="number" value="${item.id}"/>
+<input type="hidden" name="product_id[]"  type="number" value="${item.id}"/>
+</td>
+
+<td>
+<div class="d-flex">
+<button class="btn btn-primary btn-sm qtybtn" data-type="minus">
+<i class="fas fa-minus"></i>
+</button>
+
+<input id="form1" min="1" data-qty="${item.id}" name="quantity[]" size="50" value="1" type="number"
+class="form-control form-control-sm quantity" />
+
+<button class="btn btn-primary btn-sm qtybtn"
+data-type="plus">
+<i class="fas fa-plus"></i>
+</button>
+</div>
+
+</td>
+
+<td>
+<a class="btn-delete btn btn-sm btn-danger" > <i class="fa fa-trash"></i></a>
+</td>
+
+<td class="row_total">
+${item.selling_price}
+</td>
+
+</tr>
+`);
+
+cartCalculate();
+}
     </script>
 @endsection
