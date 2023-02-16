@@ -97,7 +97,7 @@
 
         <!-- Plugins js-->
         <script src="{{ asset('backend/assets/libs/flatpickr/flatpickr.min.js') }}"></script>
-        <script src="{{ asset('backend/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+        {{-- <script src="{{ asset('backend/assets/libs/apexcharts/apexcharts.min.js') }}"></script> --}}
 
         <script src="{{ asset('backend/assets/libs/selectize/js/standalone/selectize.min.js') }}"></script>
 

@@ -169,6 +169,7 @@ Route::get('/pos-search','searchProduct')->name('pos.search');
 Route::get('/customer-search','searchCustomer')->name('customer.search');
 Route::get('/product/{id}','productShow')->name('productShow');
 Route::get('/invoice/{id}','Posinvoice')->name('Posinvoice');
+Route::post('/payment-store','paymentstore')->name('payment.store');
 
 
 
